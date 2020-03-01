@@ -3,7 +3,7 @@ package com.example.miconexionimagenes;
 import java.util.List;
 
 public class Heroe {
-
+//Objeto Heroe
         public String image_url;
         public String name;
 

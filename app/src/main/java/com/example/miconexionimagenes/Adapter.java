@@ -16,12 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.PersonViewHolder>{
+
+   //Constructor con los objetos
     ArrayList<Heroe> persons;
 
     Adapter(ArrayList<Heroe> persons){
         this.persons = persons;
     }
+
+
+    //Se le pasa el layout que contendra la informacion al recycler view
     @NonNull
+
     @Override
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.imagenes, parent, false);
@@ -29,20 +35,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PersonViewHolder>{
         return pvh;
     }
 
+
+//Se le pasan los datos del array list, para la imagen se usa la libreria Picasso
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         holder.personName.setText(persons.get(position).getName());
-        Picasso.get().load(persons.get(position).getImage_url()).resize(120, 60).into(holder.personPhoto);
+        Picasso.get().load(persons.get(position).getImage_url()).resize(500, 500).into(holder.personPhoto);
 
     }
+//Metodo para ver cuantas veces se repetira el llenado
 
     @Override
     public int getItemCount() {
         return persons.size();
     }
+    //Prepara el recycler view
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+    //Carga los datos de la lista en las cardviews del layout
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView personName;

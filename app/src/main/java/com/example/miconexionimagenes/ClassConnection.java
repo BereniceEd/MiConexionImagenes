@@ -16,11 +16,12 @@ import java.net.URL;
 
 public class ClassConnection extends AsyncTask<String, String, String> {
     Context con;
-
+//Se usa una tarea asincrona por que para las conexiones es la mas adecuda
+    //los 3 strings de arriba, son: la url, la cadena que procesa y la cadena que retorna
     @Override
     protected String doInBackground(String... strings) {
 
-
+//Se instancian las variables para conexion
         HttpURLConnection httpURLConnection = null;
         URL url = null;
 
@@ -45,9 +46,9 @@ public class ClassConnection extends AsyncTask<String, String, String> {
            // httpURLConnection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString(("joe" + ":" + "pino").getBytes(), Base64.NO_WRAP));
             httpURLConnection.connect();
             int code = httpURLConnection.getResponseCode();
-
+//Si la conexion es exitosa entra aqui
             if (code == httpURLConnection.HTTP_OK) {
-
+//Lee el archivo Json y almacena la informacion en una cadena que se retorna al final
                 InputStream inputStreamResponse = new BufferedInputStream(httpURLConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStreamResponse, "UTF-8"));
                 String linea = null;

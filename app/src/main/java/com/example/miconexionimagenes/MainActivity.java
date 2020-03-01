@@ -38,28 +38,33 @@ public class MainActivity extends AppCompatActivity {
 
         ClassConnection classConnection = new ClassConnection();
         try {
-            String cadena = classConnection.execute("https://simplifiedcoding.net/demos/view-flipper/heroes.php").get();
 
+            //cadena que contendra la informacion del Json
+            String cadena = classConnection.execute("https://simplifiedcoding.net/demos/view-flipper/heroes.php").get();
+//Se accede al objeto
             JSONObject ob = new JSONObject( cadena);
             JSONArray arrar = ob.getJSONArray("heroes");//usar el lenght de esta
                listItemsPlaces = new ArrayList<>();
-    Heroe h ;
+
+
+               //Se inicializan las variables para construir el recycler
     recycler= (RecyclerView) findViewById(R.id.reci);
-            recycler.setHasFixedSize(true);
+           // recycler.setHasFixedSize(true);
 
             llm = new LinearLayoutManager(this);
             recycler.setLayoutManager(llm);
             recycler.setItemAnimator(new DefaultItemAnimator());
            String chido ="";
+           //EL for llena el array list con los datos que se necesitan y devyuelve el array list lleno
             for (int i = 0; i < arrar.length(); i++)
             {
                 try {
                     String url = arrar.getJSONObject(i).getString("imageurl");//habemus por objeto
-                   // Listurl_images[i]= url;
+
                     String nombre = arrar.getJSONObject(i).getString("name");//habemus por objeto
-                   // Listnames[i] = nombre;
+
                     chido = chido + "  " + url;
-                 //   h.agregar( new Heroe(url, nombre));
+
                     listItemsPlaces.add(new Heroe(url, nombre));
 
                 } catch (JSONException e) {
@@ -70,27 +75,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,chido+"", Toast.LENGTH_LONG ).show();
 
 
-          //  listItemsPlaces = new ArrayList<>();
+          //Se crea y llena con los datos el recycler por medio del adaptador
            Adapter adapter = new Adapter(listItemsPlaces);
             recycler.setAdapter(adapter);
 
-            //CustomerAdapter cum = new CustomerAdapter(listItemsPlaces);
-            //recycler.setAdapter(cum);
-
-
-
-            // ArrayList Heroes = prepareData();
-            //PlaceCardAdapter adapter = new PlaceCardAdapter(context, Heroes);
-            // recycler.setAdapter(adapter);
-            //JSONArray array = ob.getJSONArray("heroes");
-       // String d = ob.getJSONObject("heroes").getString("imageurl");
-
-
-
-
-
-//
-               //
 
 
         } catch (ExecutionException e) {
@@ -104,22 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initViews(){
 
 
-
-
-
-    }
-    private ArrayList prepareData(){
-
-        ArrayList android_version = new ArrayList<>();
-        for(int i=0;i<Listnames.length;i++){
-            Heroe androidVersion = new Heroe();
-            androidVersion.setName(Listnames[i]);
-            androidVersion.setImage_url(Listurl_images[i]);
-            android_version.add(androidVersion);
-        }
-        return android_version;
-    }
 }

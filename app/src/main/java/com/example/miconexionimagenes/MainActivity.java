@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recycler;
 
     private RecyclerView.LayoutManager lManager;
-    private List<Heroe> listItemsPlaces;
+    private ArrayList<Heroe> listItemsPlaces;
     private  String Listnames[];
     private String Listurl_images[];
     Context context;
+    LinearLayoutManager llm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,36 +42,40 @@ public class MainActivity extends AppCompatActivity {
 
             JSONObject ob = new JSONObject( cadena);
             JSONArray arrar = ob.getJSONArray("heroes");//usar el lenght de esta
+               listItemsPlaces = new ArrayList<>();
+    Heroe h ;
+    recycler= (RecyclerView) findViewById(R.id.reci);
+            recycler.setHasFixedSize(true);
 
-    Heroe h = null;
+            llm = new LinearLayoutManager(this);
+            recycler.setLayoutManager(llm);
+            recycler.setItemAnimator(new DefaultItemAnimator());
            String chido ="";
             for (int i = 0; i < arrar.length(); i++)
             {
                 try {
                     String url = arrar.getJSONObject(i).getString("imageurl");//habemus por objeto
-                    Listurl_images[i]= url;
+                   // Listurl_images[i]= url;
                     String nombre = arrar.getJSONObject(i).getString("name");//habemus por objeto
-                    Listnames[i] = nombre;
+                   // Listnames[i] = nombre;
                     chido = chido + "  " + url;
-                    h.agregar( new Heroe(url, nombre));
+                 //   h.agregar( new Heroe(url, nombre));
                     listItemsPlaces.add(new Heroe(url, nombre));
 
                 } catch (JSONException e) {
                     Log.e("Parser JSON", e.toString());
                 }
             }
-        recycler = (RecyclerView)findViewById(R.id.reci);
-           recycler.setHasFixedSize(true);
-           LinearLayoutManager llm = new LinearLayoutManager(context);
-            recycler.setLayoutManager(llm);
+
             Toast.makeText(this,chido+"", Toast.LENGTH_LONG ).show();
 
 
           //  listItemsPlaces = new ArrayList<>();
-            Adapter adapter = new Adapter(listItemsPlaces);
+           Adapter adapter = new Adapter(listItemsPlaces);
             recycler.setAdapter(adapter);
 
-
+            //CustomerAdapter cum = new CustomerAdapter(listItemsPlaces);
+            //recycler.setAdapter(cum);
 
 
 

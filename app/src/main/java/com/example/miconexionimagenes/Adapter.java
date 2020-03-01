@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.PersonViewHolder>{
-    List<Heroe> persons;
+    ArrayList<Heroe> persons;
 
-    Adapter(List<Heroe> persons){
+    Adapter(ArrayList<Heroe> persons){
         this.persons = persons;
     }
     @NonNull
     @Override
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.imagenes, parent, false);
         PersonViewHolder pvh = new PersonViewHolder(v);
         return pvh;
     }
@@ -51,9 +52,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PersonViewHolder>{
         PersonViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
-            personName = (TextView)itemView.findViewById(R.id.person_name);
+            personName = (TextView)itemView.findViewById(R.id.textView2);
 
-            personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
+            personPhoto = (ImageView)itemView.findViewById(R.id.imageView);
         }
     }
 
